@@ -29,6 +29,7 @@ Berlaku untuk semua gambar AutoCAD kantor RAD+ar. Ikuti persis; penyimpangan har
 
 ## 1. Units, coordinates, scale
 - Units: **millimetres** (INSUNITS = 4). 1 drawing unit = 1 mm.
+- **New drawing:** never start from `acad.dwt` (inch). Use skill **radar-cad-dwg-baru** (`radar-dwg-baru.ps1` / `RADARSETUP`) — it opens `acadiso.dwt` and installs every layer, style, dimstyle and office block below.
 - Draw everything at **1:1 in model space**; the scale only affects paper frame, text and dimension sizes.
 - Keep project/survey coordinates when a base drawing exists (DAAN MOGOT frames sit at x 1,345,000 / 1,555,000).
 - Office UCS in standards file: origin at the top-left of the first sheet (UCS ORIGIN 1345000,353650). Return to WCS
