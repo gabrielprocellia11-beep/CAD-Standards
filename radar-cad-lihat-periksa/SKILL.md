@@ -47,6 +47,35 @@ lanjut menggambar tanpa melihat.
 
 Jangan loncat tahap. Jangan menggambar tahap 3 sebelum tahap 1-2 lolos.
 
+## Membaca model 3D OTOMATIS (jangan tanya user hal yang bisa dibaca sendiri)
+
+Sebelum menggambar apa pun dari model SketchUp, jalankan alat `alat/baca-model-3d.rb`
+di SketchUp (Ruby). Ambil isi file dari repo ini lalu jalankan, atau:
+```ruby
+$radar_out = 'D:/000 RAD+AR/AI/PRACTICE/_baca3d'
+load 'D:/000 RAD+AR/AI/PRACTICE/baca-model-3d.rb'
+```
+Alat ini TIDAK butuh nama grup, tag, atau Outliner, dan tidak mengubah model. Hasilnya:
+- `ringkasan.txt` / `ringkasan.json`: daftar bangunan (GEDUNG A = paling banyak lantai),
+  jumlah lantai, FFL tiap lantai (relatif tapak = +0.000), kotak koordinat tiap bangunan (mm).
+- `GEDUNG_A_LEVEL_1.png` dst. dan `SEMUA_LEVEL_n.png`: potongan denah tampak atas di FFL + 1200,
+  dengan `mm_per_px` dan `x_kiri_atas_mm` / `y_kiri_atas_mm` untuk MENGUKUR posisi dari gambar:
+  `X = x_kiri_atas_mm + px * mm_per_px`, `Y = y_kiri_atas_mm - py * mm_per_px`.
+- Pakai koordinat model yang sama di AutoCAD (1:1, mm), supaya ukuran bisa dicocokkan langsung.
+
+LIHAT setiap PNG sebelum mengukur. Kalau gambar menunjukkan atap (bukan denah terpotong),
+jalankan ulang dengan `$radar_flip = true`.
+
+### Kapan boleh bertanya ke user
+- JANGAN tanya: grup mana yang bangunan, berapa jumlah lantai, FFL, letak core, atau minta
+  user membuka Outliner / mengeklik pelat. Itu semua dibaca dari `ringkasan.txt` + gambar.
+- JANGAN tanya soal file lama: selalu buat file DWG BARU sesuai nama di tugas. File lama
+  tidak dibuka, tidak diubah, tidak dihapus.
+- Boleh tanya HANYA bila: hasil alat bertentangan dengan tugas (mis. tugas bilang 9 lantai,
+  alat menemukan 8), nama ruang tidak bisa dibaca dari model, atau alat gagal dijalankan.
+  Saat bertanya, sertakan apa yang sudah ditemukan alat dan usulan jawabanmu sendiri,
+  lalu lanjutkan pekerjaan lain yang tidak bergantung pada jawaban itu.
+
 ## Cara memakai model 3D / potongan SketchUp (sumber salah tangkap terbesar)
 
 Aturan emas `radar-cad-standar` no.1 berlaku penuh: **JANGAN export atau trace.**
@@ -120,8 +149,9 @@ menyebut apa yang dilihat.
 8. **Dibanding acuan** - Sebutkan 1-3 perbedaan terbesar dengan gambar acuan
    (PRACTICE 2 / plot HABCO GROUND FLOOR PLAN). Perbaiki yang terbesar dulu.
 
-Bila ragu apakah suatu garis itu dinding atau bukan: ambil screenshot model
-SketchUp di posisi yang sama, atau tanya user. Jangan menebak.
+Bila ragu apakah suatu garis itu dinding atau bukan: lihat lagi gambar `baca-model-3d`
+atau ambil tampak SketchUp di posisi yang sama. Jangan menebak; tanya user hanya
+sesuai aturan "Kapan boleh bertanya" di atas.
 
 ### Tanda bahaya - berhenti dan perbaiki dulu
 
