@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "autocad-mata": {
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\000 RAD+AR\\AI\\CAD-Standards\\alat\\autocad-mcp-mata.ps1"
+      ],
+      "env": {
+        "ACAD_MCP_SHOT_DIR": "D:\\000 RAD+AR\\AI\\CAD-Standards\\screenshots",
+        "ACAD_MCP_REQUIRED_LAYERS": "AGRI,ASTR,ACUT,AHAT,ATEX"
+      }
+    }
+  }
+}
