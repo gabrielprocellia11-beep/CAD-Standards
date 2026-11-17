@@ -18,6 +18,7 @@ bisa membuka gambar AutoCAD baru dalam **millimetre** dengan semua standar yang 
 | `RADAR-SETUP.lsp` | Perintah `RADARSETUP` (pasang standar mm ke gambar aktif) dan `RADARFRAME` (frame A3 + title block). Juga `(radar:setup 100)` / `(radar:frame 100 "PROYEK" "JUDUL" '(0 0))` |
 | `radar-dwg-baru.ps1` | Membuka dokumen AutoCAD **baru** dari `acadiso.dwt`, memuat LISP, setup, opsional frame & simpan |
 | `autocad-mcp-mata.ps1` | Server AutoCAD MCP untuk Bambang: semua tool lama + `acad_lihat_area` / `acad_screenshot` (kirim screenshot AutoCAD sebagai **gambar**), `acad_zoom_window`, `acad_cek_denah` (hitung layer, garis dobel, layer wajib kosong) |
+| `baca-model-3d.rb` | Ruby untuk SketchUp: baca model 3D **otomatis** (tanpa Outliner/nama grup): cari bangunan, hitung lantai + FFL, buat gambar potongan denah tiap lantai (FFL+1200) dengan skala mm/pixel untuk mengukur. Model tidak diubah |
 | `uji-cepat-mata.ps1` | Tes server di atas tanpa Bambang (AutoCAD harus terbuka) |
 | `contoh-config-mcp-mata.json` | Contoh pendaftaran server `autocad-mata` |
 | `python/radar_cad_dsl.py`, `python/radar_cad_lisp.py` | Generator AutoLISP (dinding union+solid, pintu, jendela, tangga, kolom, hatch) yang dipakai Claude |
