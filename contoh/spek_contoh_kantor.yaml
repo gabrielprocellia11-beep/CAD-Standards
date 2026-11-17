@@ -1,0 +1,38 @@
+# Contoh spek: kantor kecil 2 bentang x 1 bentang (latihan Level 1)
+proyek: CONTOH KANTOR
+lantai: L1
+ffl: "+0.450"
+skala: 100
+
+grid:
+  x: {A: 0, B: 6000, C: 12000}
+  y: {"1": 0, "2": 6000}
+
+kolom: {tipe: COL-D400, di: semua_titik_grid}
+
+dinding:   # garis as + tebal
+  - {id: W1, dari: [0, 0],      ke: [12000, 0],    tebal: 250}   # selatan
+  - {id: W2, dari: [12000, 0],  ke: [12000, 6000], tebal: 250}   # timur
+  - {id: W3, dari: [12000, 6000], ke: [0, 6000],   tebal: 250}   # utara
+  - {id: W4, dari: [0, 6000],   ke: [0, 0],        tebal: 250}   # barat
+  - {id: W5, dari: [6000, 0],   ke: [6000, 6000],  tebal: 150}   # sekat tengah
+
+bukaan:    # posisi = jarak dari awal dinding ke tengah bukaan
+  - {tipe: pintu-ganda, dinding: W1, posisi: 3000, lebar: 1600, sisi: kiri}
+  - {tipe: jendela,     dinding: W1, posisi: 9000, lebar: 2400}
+  - {tipe: jendela,     dinding: W3, posisi: 3000, lebar: 3000}
+  - {tipe: jendela,     dinding: W3, posisi: 9000, lebar: 3000}
+  - {tipe: pintu,       dinding: W5, posisi: 1500, lebar: 900, sisi: kanan, engsel: awal}
+  - {tipe: sliding,     dinding: W2, posisi: 3000, lebar: 1800}
+
+tangga: []
+ramp:
+  - {batas: [[1500, -2400], [4500, -2400], [4500, -1200], [1500, -1200]], kemiringan: "1:12"}
+
+ruang:
+  - {nama: LOBBY,       titik: [3000, 3000], level: "+0.450", batas: [[0,0],[6000,0],[6000,6000],[0,6000]]}
+  - {nama: OPEN OFFICE, titik: [9000, 3000], batas: [[6000,0],[12000,0],[12000,6000],[6000,6000]]}
+
+asumsi:
+  - "Tebal sekat tengah 150 (tidak tertulis di sketsa)."
+TANYA: []
