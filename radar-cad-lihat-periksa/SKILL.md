@@ -1,6 +1,6 @@
 ---
 name: radar-cad-lihat-periksa
-description: Wajib dipakai setiap kali menggambar atau mengedit denah/tampak/potongan di AutoCAD untuk RAD+ar, terutama bila sumbernya model SketchUp. Mengatur siklus gambar -> lihat -> bandingkan -> perbaiki, dan cara membaca garis potongan SketchUp supaya tidak salah tangkap.
+description: Wajib dipakai setiap kali menggambar atau mengedit denah/tampak/potongan di AutoCAD untuk RAD+ar, terutama bila sumbernya model SketchUp. Mengatur siklus gambar -> lihat -> bandingkan -> perbaiki, dan cara memakai potongan SketchUp hanya sebagai acuan ukur (tanpa export/trace) supaya tidak salah tangkap.
 ---
 
 # RAD+ar - Lihat & Periksa Gambar
@@ -35,7 +35,7 @@ lanjut menggambar tanpa melihat.
 
 | Tahap | Isi | Layer | Lolos jika (dilihat di screenshot) |
 |---|---|---|---|
-| 0 | Underlay potongan SketchUp | `X-UNDERLAY` (warna 8, tidak di-plot) | Garis abu-abu tipis, posisi pas di tengah frame |
+| 0 | Persiapan: DWG baru/benar (`radar-cad-dwg-baru`), skala, frame A3 + kotak referensi; ukur posisi & ukuran dari GAMBAR potongan 3D | - (tidak ada garis dari 3D) | Frame & skala benar, daftar ukuran grid/dinding sudah dicatat |
 | 1 | Grid struktur + bubble | `AGRI` | Garis putus-putus menerus, jarak sama dengan model, bubble berlabel A,B,C / 1,2,3 |
 | 2 | Kolom (blok, mis. COL-D800) di persilangan grid | `ASTR` | Setiap persilangan grid yang memang ada kolomnya terisi; tidak ada kolom melayang di luar grid |
 | 3 | Dinding & dinding core: persegi tertutup per segmen -> REGION -> UNION -> hatch SOLID (lihat `radar-cad-standar`) | `ACUT` + `AHAT` | Dinding tebal hitam menerus, tidak putus-putus, tidak ada garis dobel |
@@ -47,30 +47,34 @@ lanjut menggambar tanpa melihat.
 
 Jangan loncat tahap. Jangan menggambar tahap 3 sebelum tahap 1-2 lolos.
 
-## Cara membaca potongan SketchUp (sumber salah tangkap terbesar)
+## Cara memakai model 3D / potongan SketchUp (sumber salah tangkap terbesar)
 
-Garis hasil potongan adalah DATA MENTAH, bukan denah. Perlakukan sebagai underlay
-yang harus DITAFSIRKAN, bukan disalin.
+Aturan emas `radar-cad-standar` no.1 berlaku penuh: **JANGAN export atau trace.**
+Jangan export potongan/model SketchUp ke DWG, jangan memasukkan garis hasil potongan ke
+AutoCAD (juga tidak sebagai underlay), jangan menyalin garis dari DWG lain. Potongan 3D
+hanya **GAMBAR untuk mengukur** posisi dan ukuran. Semua garis digambar sendiri.
 
-- **Tinggi potong**: potong di FFL lantai itu + 1200 mm. Jangan pakai nilai di
-  bawah lantai (contoh salah: -450) - kolom dan dinding tidak terpotong benar.
-- **Filter dulu di SketchUp**: potong hanya tag/layer struktur & dinding
-  (Wall, Column, Core, Glass). Sembunyikan furnitur, landscape, entourage,
-  railing dekoratif sebelum memotong.
-- **Hapus garis dobel**: segmen yang koordinatnya sama (toleransi 5 mm) cukup
-  satu. Jika `acad_cek_denah` melaporkan `garis_dobel > 0`, bersihkan dulu.
-- **Kenali jenis garis dari bentuknya, lalu konfirmasi dengan screenshot**:
+- **Tinggi potong**: lihat potongan tiap lantai di FFL lantai itu + 1200 mm. Jangan pakai
+  nilai di bawah lantai (contoh salah: -450) - kolom dan dinding tidak terlihat benar.
+- **Ukur, catat, baru gambar**: dari gambar potongan (dan/atau tape measure / koordinat
+  titik di SketchUp) catat dulu: as grid X dan Y, ukuran kolom, tebal & as dinding, posisi
+  core, bukaan. Ketik koordinat yang sudah diukur ke AutoCAD.
+- **Kenali jenis elemen dari gambar, bukan dari daftar angka**:
   - dua garis sejajar berjarak 100-300 mm, panjang -> dinding
-  - kotak kecil persegi 400-1000 mm di pola berulang -> kolom (cocokkan ke grid)
+  - kotak persegi/lingkaran 400-1000 mm di pola berulang -> kolom (cocokkan ke grid)
   - kumpulan garis pendek sejajar berjarak 250-300 mm -> tangga
   - kotak +/-2000 x 2000 mm di dalam core -> lift
-  - garis tunggal panjang di luar bangunan -> batas tapak / jalan (layer site, bukan dinding)
-  - banyak garis kecil tak beraturan di tengah ruang -> furnitur (abaikan di denah arsitektur)
-- **Kolom tidak boleh ditebak dari potongan saja**: tentukan grid dulu dari
-  model, lalu taruh blok kolom di persilangan. Titik kolom yang tidak jatuh di
-  grid = tanda salah tafsir, periksa ulang di SketchUp.
-- **Skala & posisi**: unit model mm. Bila denah terlihat sangat kecil di dalam
-  frame (< 30% lebar frame), kemungkinan unit/skala salah - cek sebelum lanjut.
+  - garis panjang di luar bangunan -> batas tapak / jalan
+  - garis kecil tak beraturan di tengah ruang -> furnitur (bukan fokus; meja/counter cukup kotak sederhana)
+- **Kolom tidak boleh ditebak**: tentukan grid dulu, lalu sisipkan BLOK kolom di persilangan.
+  Kolom yang tidak jatuh di grid = tanda salah ukur, periksa ulang di model.
+- **Garis bersih & lurus**: jangan garis berlekuk hasil auto-trace. Bila potongan tidak jelas,
+  ukur ulang dan sederhanakan jadi segmen lurus / busur sejati.
+- **Cek satu ukuran yang diketahui** (mis. jarak grid) di gambar vs model sebelum lanjut.
+- **Skala & posisi**: unit mm, gambar 1:1 di model space. Bila denah terlihat sangat kecil di
+  dalam frame (< 30% lebar frame), unit atau skala salah - cek sebelum lanjut.
+- Bila `acad_cek_denah` menemukan ratusan LINE pendek / garis dobel di `ACUT`, itu tanda garis
+  hasil export/trace masuk ke gambar: hapus dan gambar ulang sendiri.
 
 ## Kriteria selesai satu lantai
 
@@ -83,14 +87,16 @@ Semua harus benar, dilihat dari screenshot terakhir + hasil `acad_cek_denah`:
 - [ ] Core (tangga + lift) terbaca jelas dan berlabel
 - [ ] Label ruang + FFL ada; judul "LEVEL n PLAN - FFL +x.xxx" ada
 - [ ] Denah mengisi +/-60-75% frame dan terpusat
-- [ ] Underlay `X-UNDERLAY` dimatikan / tidak di-plot
+- [ ] Tidak ada satu pun garis hasil export/trace dari SketchUp atau DWG lain
+- [ ] Dimensi pakai dimstyle `WMS<skala>` tanpa diubah, ke grid, tier 1 per bay + tier 2 total
+- [ ] Semua entitas ByLayer (warna = tebal pena CTB), tidak ada warna entitas yang diubah
 
 Jika satu saja belum, lantai itu BELUM selesai - jangan pindah lantai berikutnya.
 
 ## Contoh kesalahan nyata (HABCO, 17 Nov 2026)
 
-- Semua garis potongan disalin ke `ACUT` -> 0 kolom, 0 teks, garis dobel,
-  furnitur & garis tapak tercampur dengan dinding.
+- Garis potongan SketchUp di-export/disalin ke `ACUT` (melanggar aturan emas no.1) -> 0 kolom,
+  0 teks, garis dobel, furnitur & garis tapak tercampur dengan dinding.
 - Potongan di level -450 -> kolom hilang / jadi titik melayang.
 - Denah sangat kecil di dalam frame -> tidak diperiksa karena tidak pernah dilihat.
 - Semua kesalahan ini akan tertangkap di langkah 2-3 siklus di atas.
