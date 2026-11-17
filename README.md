@@ -11,6 +11,7 @@ bisa membuka gambar AutoCAD baru dalam **millimetre** dengan semua standar yang 
 | `radar-cad-pelajaran` | Riwayat latihan, DO & DON'T, kesalahan & perbaikan, tips kerja cepat |
 | `radar-cad-proyek` | Data proyek DAAN MOGOT & HABCO |
 | `radar-cad-lihat-periksa` | **Wajib saat menggambar**: siklus gambar -> lihat (screenshot) -> cek -> perbaiki per tahap, urutan menggambar denah, cara membaca potongan SketchUp tanpa salah tangkap |
+| `bambang-spek-kode-cek` | **Metode kerja wajib**: SPEK → KODE → CEK, buku koreksi, kurikulum latihan (alat di `tools/`) |
 
 ## Alat (`alat/`)
 | File | Fungsi |
@@ -32,7 +33,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File alat\radar-dwg-baru.ps1 -Ska
 ## Referensi
 `referensi/RADAR-CAD-STANDARDS.md` – dokumen standar lengkap (bahasa Inggris) sumber semua skill.
 
-**Pasang di Bambang:** Settings → Repo → Tambah repo → isi `gabrielprocellia11-beep/CAD-Standards` → Tambah, lalu aktifkan keenam skill di tab Skill.
+**Pasang di Bambang:** Settings → Repo → Tambah repo → isi `gabrielprocellia11-beep/CAD-Standards` → Tambah, lalu aktifkan ketujuh skill di tab Skill.
 Repo harus **public** (Bambang tidak bisa membaca repo private).
 
 ## Mata untuk Bambang (`radar-cad-lihat-periksa`)
@@ -49,7 +50,7 @@ Skill `radar-cad-lihat-periksa` + server `alat/autocad-mcp-mata.ps1` memperbaiki
 Setiap screenshot memakai +/- 1.500-2.000 token; pastikan saldo kredit API cukup.
 
 ## Metode Bambang: SPEK → KODE → CEK
-Alur wajib untuk setiap tugas gambar kerja (dari SketchUp maupun sketsa). Instruksi lengkap ada di `SKILL.md` (skill `bambang-spek-kode-cek`).
+Alur wajib untuk setiap tugas gambar kerja (dari SketchUp maupun sketsa). Instruksi lengkap ada di skill `bambang-spek-kode-cek/SKILL.md`.
 
 ```
 1. Baca KOREKSI.md
@@ -63,7 +64,7 @@ Alur wajib untuk setiap tugas gambar kerja (dari SketchUp maupun sketsa). Instru
 
 | File | Fungsi |
 |---|---|
-| `SKILL.md` | Skill `bambang-spek-kode-cek` |
+| `bambang-spek-kode-cek/SKILL.md` | Skill metode kerja |
 | `SPEK-FORMAT.md` | Format spek YAML |
 | `KOREKSI.md` | Buku koreksi owner (setiap koreksi = aturan + cek linter) |
 | `KURIKULUM.md` | Level latihan 1–5 + rubrik |
